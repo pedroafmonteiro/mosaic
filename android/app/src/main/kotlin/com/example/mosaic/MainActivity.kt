@@ -1,4 +1,4 @@
-package com.example.mosaic
+package pt.pedroafmonteiro.mosaic
 
 import io.flutter.embedding.android.FlutterActivity
 
