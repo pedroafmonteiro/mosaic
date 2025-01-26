@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mosaic/src/view/navrail/navrail_view.dart';
 
 import '../../controller/settings/settings_controller.dart';
+import '../navbar/navbar_view.dart';
 
 /// Displays the various settings that can be customized by the user.
 ///
@@ -18,33 +20,40 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        automaticallyImplyLeading: false,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        // Glue the SettingsController to the theme selection DropdownButton.
-        //
-        // When a user selects a theme from the dropdown list, the
-        // SettingsController is updated, which rebuilds the MaterialApp.
-        child: DropdownButton<ThemeMode>(
-          // Read the selected themeMode from the controller
-          value: controller.themeMode,
-          // Call the updateThemeMode method any time the user selects a theme.
-          onChanged: controller.updateThemeMode,
-          items: const [
-            DropdownMenuItem(
-              value: ThemeMode.system,
-              child: Text('System Theme'),
+      bottomNavigationBar: NavBarView(selectedIndex: 1),
+      body: Row(
+        children: [
+          NavRailView(selectedIndex: 1),
+          Padding(
+            padding: const EdgeInsets.all(16),
+            // Glue the SettingsController to the theme selection DropdownButton.
+            //
+            // When a user selects a theme from the dropdown list, the
+            // SettingsController is updated, which rebuilds the MaterialApp.
+            child: DropdownButton<ThemeMode>(
+              // Read the selected themeMode from the controller
+              value: controller.themeMode,
+              // Call the updateThemeMode method any time the user selects a theme.
+              onChanged: controller.updateThemeMode,
+              items: const [
+                DropdownMenuItem(
+                  value: ThemeMode.system,
+                  child: Text('System Theme'),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.light,
+                  child: Text('Light Theme'),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.dark,
+                  child: Text('Dark Theme'),
+                )
+              ],
             ),
-            DropdownMenuItem(
-              value: ThemeMode.light,
-              child: Text('Light Theme'),
-            ),
-            DropdownMenuItem(
-              value: ThemeMode.dark,
-              child: Text('Dark Theme'),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

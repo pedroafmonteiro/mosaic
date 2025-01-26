@@ -62,16 +62,21 @@ class MyApp extends StatelessWidget {
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
           onGenerateRoute: (RouteSettings routeSettings) {
-            return MaterialPageRoute<void>(
+            Widget page;
+            switch (routeSettings.name) {
+              case SettingsView.routeName:
+                page = SettingsView(controller: settingsController);
+                break;
+              case HomeView.routeName:
+              default:
+                page = const HomeView();
+                break;
+            }
+            return PageRouteBuilder(
               settings: routeSettings,
-              builder: (BuildContext context) {
-                switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
-                  case HomeView.routeName:
-                  default:
-                    return const HomeView();
-                }
+              pageBuilder: (context, animation, secondaryAnimation) => page,
+              transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                return FadeTransition(opacity: animation, child: child);
               },
             );
           },

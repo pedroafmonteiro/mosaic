@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mosaic/src/view/navbar/navbar_view.dart';
+import 'package:mosaic/src/view/navrail/navrail_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -10,26 +12,19 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
+        automaticallyImplyLeading: false,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'School',
+      bottomNavigationBar: NavBarView(selectedIndex: 0),
+      body: Row(
+        children: [
+          NavRailView(selectedIndex: 0),
+          Expanded(
+            child: Center(
+              child: Text('Home'),
+            ),
           ),
         ],
-      ),
-      body: Center(
-        child: Text('Home View'),
-      ),
+      )
     );
   }
 }
